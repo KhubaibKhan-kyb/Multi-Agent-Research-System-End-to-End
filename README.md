@@ -277,7 +277,7 @@ Example with Railway:
 3. Vercel auto-detects Next.js
 4. Add environment variable:
    ```
-   NEXT_PUBLIC_API_URL=https://your-backend-api.com
+   BACKEND_URL=https://your-backend-api.com
    ```
 5. Deploy automatically
 
@@ -298,7 +298,7 @@ GROQ_API_KEY=gsk-xxxxx
 ### `frontend/.env.local` (Frontend - for production)
 
 ```env
-NEXT_PUBLIC_API_URL=https://your-backend-api.com
+BACKEND_URL=https://your-backend-api.com
 ```
 
 ---
