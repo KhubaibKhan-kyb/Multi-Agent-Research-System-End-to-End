@@ -1,4 +1,4 @@
-# Argus — Multi-Agent Research System
+# Argus: Multi-Agent Research System
 
 > Deep research, on demand. A real-time AI research assistant that searches, reads, writes, and critiques.
 
