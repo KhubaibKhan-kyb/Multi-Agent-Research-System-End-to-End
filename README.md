@@ -176,7 +176,7 @@ Visit **http://localhost:3000** and start researching!
 
 ---
 
-## 🎮 Usage
+## Usage
 
 ### Basic Research
 
