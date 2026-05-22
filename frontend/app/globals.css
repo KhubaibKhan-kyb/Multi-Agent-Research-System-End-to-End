@@ -1,0 +1,184 @@
+/*
+  globals.css
+  ===========
+  Design system foundation for the research UI.
+
+  AESTHETIC DIRECTION: "Editorial Command Center"
+  - Dark, ink-black base (#0a0a0a) — not generic dark grey
+  - Warm amber/gold accent — evokes archival paper, intelligence, authority
+  - Tight, purposeful typography using Fraunces (display) + DM Serif (body)
+  - Mono font for data/code sections — reinforces the "system" feel
+  - Grain texture overlay for depth — prevents the flat digital look
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -------------------------------------------------------------------------
+   CSS Custom Properties (Design Tokens)
+   Centralizing these means changing the theme is a single-file edit.
+   -------------------------------------------------------------------------*/
+:root {
+  /* Surface colors */
+  --bg-base:        #0a0a0a;   /* True black — not grey */
+  --bg-surface:     #111111;   /* Cards, panels */
+  --bg-elevated:    #1a1a1a;   /* Inputs, hover states */
+  --bg-border:      #2a2a2a;   /* Borders */
+
+  /* Text colors */
+  --text-primary:   #f0ebe0;   /* Warm off-white — easier on eyes than pure white */
+  --text-secondary: #8a8070;   /* Muted text */
+  --text-tertiary:  #4a4540;   /* Placeholder, disabled */
+
+  /* Accent — warm amber/gold */
+  --accent:         #c8a96e;   /* Primary accent */
+  --accent-dim:     #8a6c3c;   /* Muted accent */
+  --accent-glow:    rgba(200, 169, 110, 0.12); /* Glow for active states */
+
+  /* Stage indicator colors */
+  --stage-search:   #6e9ec8;   /* Steel blue — search/network */
+  --stage-reader:   #9e7ec8;   /* Violet — reading/parsing */
+  --stage-writer:   #c8a96e;   /* Gold — writing/output */
+  --stage-critic:   #c87e7e;   /* Rose — critical analysis */
+  --stage-done:     #7ec87e;   /* Green — completion */
+
+  /* Typography */
+  --font-display: "Fraunces", serif;
+  --font-body:    "DM Serif Display", serif;
+  --font-mono:    "JetBrains Mono", monospace;
+}
+
+/* -------------------------------------------------------------------------
+   Base Reset & Body
+   -------------------------------------------------------------------------*/
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  min-height: 100vh;
+
+  /* Subtle grain texture — adds analog depth to the digital surface */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+/* -------------------------------------------------------------------------
+   Typography Scale
+   -------------------------------------------------------------------------*/
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+/* -------------------------------------------------------------------------
+   Scrollbar Styling
+   Makes the custom scrollbar match the dark theme
+   -------------------------------------------------------------------------*/
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-border);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-dim);
+}
+
+/* -------------------------------------------------------------------------
+   Selection color
+   -------------------------------------------------------------------------*/
+::selection {
+  background: var(--accent-glow);
+  color: var(--accent);
+}
+
+/* -------------------------------------------------------------------------
+   Utility classes used throughout the app
+   (Classes Tailwind can't express cleanly)
+   -------------------------------------------------------------------------*/
+
+/* Cursor blink for streaming text effect */
+.streaming-cursor::after {
+  content: "▋";
+  color: var(--accent);
+  animation: blink 1s step-end infinite;
+  margin-left: 1px;
+  font-size: 0.85em;
+}
+
+/* Frosted glass card */
+.glass-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--bg-border);
+  border-radius: 2px;
+}
+
+/* Accent line separator */
+.accent-line {
+  height: 1px;
+  background: linear-gradient(to right, var(--accent), transparent);
+}
+
+/* Markdown output styling */
+.report-content h1,
+.report-content h2,
+.report-content h3 {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  margin: 1.5em 0 0.5em;
+  font-weight: 400;
+}
+.report-content h2 {
+  font-size: 1.25rem;
+  border-bottom: 1px solid var(--bg-border);
+  padding-bottom: 0.4em;
+}
+.report-content p {
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin: 0.75em 0;
+  font-family: var(--font-body);
+}
+.report-content ul, .report-content ol {
+  margin: 0.75em 0 0.75em 1.5em;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+.report-content li {
+  margin: 0.3em 0;
+}
+.report-content a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.report-content strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.report-content code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--bg-elevated);
+  padding: 0.15em 0.4em;
+  border-radius: 2px;
+  color: var(--accent);
+}

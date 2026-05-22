@@ -1,0 +1,51 @@
+from langchain.tools import tool
+import requests
+from bs4 import BeautifulSoup
+from tavily import TavilyClient
+from rich import print
+import os
+from dotenv import load_dotenv
+import tavily
+
+load_dotenv()
+
+tavily_client = TavilyClient(api_key=os.getenv('TAVILY_API_KEY'))
+
+def build_search_tool(api_key: str):
+    """
+    Create a web_search tool using the provided Tavily API key.
+    Called per-request from main.py so each user's key is used.
+    """
+    from tavily import TavilyClient
+    from langchain.tools import tool
+
+    client = TavilyClient(api_key=api_key)
+
+    @tool
+    def web_search(query: str) -> str:
+        """Search the web for recent and reliable information on a topic. Returns Titles, URLs, and snippets."""
+        results = client.search(query=query, max_results=3)
+
+        out = []
+
+        for r in results['results']:
+            out.append(
+                f'Title: {r["title"]}\nURL: {r["url"]}\nSnippet: {r["content"][:300]}\r'
+            )
+
+        return '\n---\n'.join(out)
+
+    return web_search    
+
+@tool
+def scrape_url(url: str) -> str:
+    """Scrape and return clean text context from a given URL for deeper reading."""
+    try:
+        response = requests.get(url, timeout=8, headers={'User-Agent': 'Mozilla/5.0'})
+        soup = BeautifulSoup(response.text, 'html.parser')
+        for tag in soup(["script", "style", 'nav', 'footer']):
+            tag.decompose()
+        return soup.get_text(separator="", strip = True)[:3000]
+    except Exception as e:
+        return f"Error scraping URL: {str(e)}"
+    

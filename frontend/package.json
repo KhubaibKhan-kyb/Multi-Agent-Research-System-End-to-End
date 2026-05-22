@@ -1,0 +1,27 @@
+{
+    "name": "research-ui",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "concurrently \"uvicorn main:app --reload --port 8000 --app-dir ../backend\" \"next dev\"",
+        "build": "next build",
+        "start": "next start"
+    },
+    "dependencies": {
+        "next": "14.2.5",
+        "react": "^18",
+        "react-dom": "^18",
+        "react-markdown": "^9.0.1",
+        "remark-gfm": "^4.0.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20",
+        "@types/react": "^18",
+        "@types/react-dom": "^18",
+        "autoprefixer": "^10.0.1",
+        "concurrently": "^9.2.1",
+        "postcss": "^8",
+        "tailwindcss": "^3.4.1",
+        "typescript": "^5"
+    }
+}
