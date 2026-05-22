@@ -42,12 +42,17 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 app = FastAPI(title="Multi-Agent Research API", version="2.0.0")
 
+allowed_origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+extra_origins = os.getenv("ALLOW_ORIGINS", "")
+if extra_origins:
+    allowed_origins.extend([origin.strip() for origin in extra_origins.split(",") if origin.strip()])
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

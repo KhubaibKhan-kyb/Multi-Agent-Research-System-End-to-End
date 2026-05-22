@@ -254,16 +254,23 @@ Multi Agent Research System/
 
 ## Deployment
 
-### Deploy Backend (e.g., Railway, Fly.io)
+### Deploy Backend (Railway / Render / Fly.io / other)
 
 1. Push code to GitHub
-2. Connect repository to hosting platform
-3. Set environment variables in the dashboard
-4. Deploy FastAPI server
+2. Create a new Python service on your hosting platform
+3. Set the service root to `backend`
+4. Configure the startup command:
+   ```bash
+   uvicorn main:app --host 0.0.0.0 --port $PORT
+   ```
+5. Set these backend environment variables:
+   - `TAVILY_API_KEY=tvly-xxxxx`
+   - (optional) `GROQ_API_KEY=gsk-xxxxx`
+   - `ALLOW_ORIGINS=https://your-frontend.vercel.app`
+6. Deploy the backend and copy the generated HTTPS URL
 
 Example with Railway:
-```bash
-# railway.json
+```json
 {
   "buildCommand": "pip install -r requirements.txt",
   "startCommand": "cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT"
@@ -273,13 +280,15 @@ Example with Railway:
 ### Deploy Frontend (Vercel)
 
 1. Push code to GitHub
-2. Connect repository to Vercel
-3. Vercel auto-detects Next.js
-4. Add environment variable:
+2. Create a new Vercel project and set the root directory to `frontend`
+3. Set the framework preset to `Next.js`
+4. Add this environment variable:
    ```
    BACKEND_URL=https://your-backend-api.com
    ```
-5. Deploy automatically
+5. Deploy the frontend
+
+Once deployed, Vercel will use `BACKEND_URL` to forward `/api/*` calls to your backend.
 
 ---
 
@@ -299,6 +308,14 @@ GROQ_API_KEY=gsk-xxxxx
 
 ```env
 BACKEND_URL=https://your-backend-api.com
+```
+
+### Backend environment variables summary
+
+```env
+TAVILY_API_KEY=tvly-xxxxx
+GROQ_API_KEY=gsk-xxxxx
+ALLOW_ORIGINS=https://your-frontend.vercel.app
 ```
 
 ---
