@@ -133,7 +133,7 @@ export default function ResearchPage() {
       const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
 
       // Append the endpoint (change '/api/research' to just '/research' if your FastAPI main.py does not use the /api prefix)
-      const response = await fetch(`${baseUrl}/research`, {
+      const response = await fetch(`${baseUrl}/api/research`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
