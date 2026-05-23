@@ -9,8 +9,6 @@ import tavily
 
 load_dotenv()
 
-tavily_client = TavilyClient(api_key=os.getenv('TAVILY_API_KEY'))
-
 def build_search_tool(api_key: str):
     """
     Create a web_search tool using the provided Tavily API key.
