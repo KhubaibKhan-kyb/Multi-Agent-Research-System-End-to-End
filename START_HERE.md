@@ -1,6 +1,6 @@
-# ✅ Setup Complete! Here's What to Do Next
+# Setup Complete! Here's What to Do Next
 
-## 🎉 What We've Done
+## What We've Done
 
 Your Multi-Agent Research System is now **deployment-ready for free platforms**. No more worrying about Railway's 1-month free plan expiring!
 
@@ -21,9 +21,9 @@ Your Multi-Agent Research System is now **deployment-ready for free platforms**.
 
 ---
 
-## 🚀 Choose Your Path
+## Choose Your Path
 
-### Path 1: Deploy to Hugging Face + Vercel (Recommended ⭐)
+### Path 1: Deploy to Hugging Face + Vercel (Recommended)
 **Cost**: $0/month | **Uptime**: 100% | **Setup time**: 22 minutes
 
 ```
@@ -63,7 +63,7 @@ Then visit:
 
 ---
 
-## 📋 Action Plan (In Order)
+## Action Plan (In Order)
 
 ### Step 1: API Keys (OPTIONAL)
 Users provide API keys dynamically through the app UI, so you don't need them for deployment!
@@ -72,7 +72,7 @@ Users provide API keys dynamically through the app UI, so you don't need them fo
 1. **Groq** - https://console.groq.com (Free, unlimited)
 2. **Tavily** - https://tavily.com (Free, 1000 searches/month)
 
-If you skip this, users just enter their keys when they use the app. 👉 **Skip to Step 2 if you don't want to do this**
+If you skip this, users just enter their keys when they use the app. **Skip to Step 2 if you don't want to do this**
 
 ### Step 2: Choose Deployment Option
 - **Recommended**: HF Spaces (backend) + Vercel (frontend)
@@ -107,7 +107,7 @@ If you skip this, users just enter their keys when they use the app. 👉 **Skip
 
 ---
 
-## 📚 Documentation Order (Read These)
+## Documentation Order (Read These)
 
 1. **First**: This file (you're reading it!)
 2. **Next**: `QUICK_DEPLOY.md` (practical deployment steps)
@@ -117,7 +117,7 @@ If you skip this, users just enter their keys when they use the app. 👉 **Skip
 
 ---
 
-## ❓ Common Questions Answered
+## Common Questions Answered
 
 ### "Will my app still work on Railway?"
 **Yes!** 100% backward compatible. Your existing Procfile still works.
@@ -158,7 +158,7 @@ Users just enter their key when they use the app. Optionally, you can pre-config
 
 ---
 
-## 🎯 Expected Outcomes
+## Expected Outcomes
 
 ### After Following QUICK_DEPLOY.md
 
@@ -193,7 +193,7 @@ You'll have:
 
 ---
 
-## ✨ Pro Tips
+## Pro Tips
 
 1. **Start with Groq**: It's completely free and fast. No API key costs.
 2. **Use HF Spaces for backend**: Truly free, never expires, simple to deploy.
@@ -204,7 +204,7 @@ You'll have:
 
 ---
 
-## 🎓 Learning Path
+## Learning Path
 
 If you want to understand the full deployment:
 1. Read `FILE_GUIDE.md` - Understand the project structure
@@ -215,7 +215,7 @@ If you want to understand the full deployment:
 
 ---
 
-## 🆘 If Something Goes Wrong
+## If Something Goes Wrong
 
 **Backend won't start on HF Spaces:**
 1. Check Dockerfile has correct path to main.py
@@ -238,7 +238,7 @@ If you want to understand the full deployment:
 
 ---
 
-## 🎉 You're Ready!
+## You're Ready!
 
 Everything is set up. You now have:
 
@@ -253,7 +253,7 @@ Everything is set up. You now have:
 
 ---
 
-## 📞 Quick Reference Commands
+## Quick Reference Commands
 
 ### Local Development
 ```bash
