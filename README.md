@@ -7,6 +7,16 @@
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green)
 ![Next.js](https://img.shields.io/badge/Next.js-latest-black)
 
+## 🚀 Deploy for FREE!
+
+**New in this version**: Support for free deployment platforms!
+
+- ✅ **Hugging Face Spaces** (Backend) - $0/month, never expires
+- ✅ **Vercel** (Frontend) - $0/month, lightning fast
+- ✅ **22 minutes to production**
+
+**→ [START HERE: Deployment Guide](START_HERE.md)** | **[Quick Deploy (22 min)](QUICK_DEPLOY.md)** | **[All Options](DEPLOYMENT_GUIDE.md)**
+
 ---
 
 ## Overview

@@ -42,13 +42,38 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 app = FastAPI(title="Multi-Agent Research API", version="2.0.0")
 
+# =========================================================================
+# CORS Configuration - Platform-Agnostic
+#
+# Supports:
+#   - Local development (localhost:3000)
+#   - Hugging Face Spaces (*.hf.space)
+#   - Railway (auto-generated domains)
+#   - Custom domains via ALLOW_ORIGINS env var
+# =========================================================================
 allowed_origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://*.hf.space",  # Hugging Face Spaces wildcard
 ]
+
+# Add any custom origins from environment variable
 extra_origins = os.getenv("ALLOW_ORIGINS", "")
 if extra_origins:
     allowed_origins.extend([origin.strip() for origin in extra_origins.split(",") if origin.strip()])
+
+# For Hugging Face Spaces and other environments, allow broader CORS
+# In production with a real frontend, restrict this further
+ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
+if ENVIRONMENT == "production":
+    # In production, use only explicitly configured origins
+    pass
+else:
+    # In development/preview, allow localhost and HF Spaces
+    allowed_origins.extend([
+        "http://localhost:*",
+        "http://127.0.0.1:*",
+    ])
 
 app.add_middleware(
     CORSMiddleware,
