@@ -20,10 +20,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy entire backend code
 COPY . .
 
-# Copy parent directory tools (tools.py might be referenced from root)
-COPY ../tools.py ../tools.py 2>/dev/null || true
-COPY ../.env ../.env 2>/dev/null || true
-
 # Expose port (Hugging Face Spaces default: 7860, Railway/others: 8000)
 # We'll use 7860 for HF Spaces, but code will use $PORT env var for flexibility
 EXPOSE 7860 8000

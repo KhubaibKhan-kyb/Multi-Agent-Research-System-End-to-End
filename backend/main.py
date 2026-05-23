@@ -172,7 +172,7 @@ def build_search_agent(llm, tavily_key: str):
     """Build the search agent with the given LLM and Tavily key."""
     from langchain.agents import AgentExecutor, create_tool_calling_agent
     from langchain_core.prompts import ChatPromptTemplate
-    from tools import build_search_tool   # see note below
+    from backend.tools import build_search_tool   # see note below
 
     search_tool = build_search_tool(tavily_key)
 
@@ -189,7 +189,7 @@ def build_search_agent(llm, tavily_key: str):
 
 def build_reader_agent(llm, tavily_key: str):
     """Build the reader agent with the given LLM."""
-    from tools import scrape_url
+    from backend.tools import scrape_url
     from langchain.agents import AgentExecutor, create_tool_calling_agent
     from langchain_core.prompts import ChatPromptTemplate
 
