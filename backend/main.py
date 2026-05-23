@@ -77,8 +77,8 @@ else:
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,
-    allow_credentials=True,
+    allow_origins=[''],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -170,9 +170,9 @@ def build_llm(model_id: str, api_key: str):
 # ---------------------------------------------------------------------------
 def build_search_agent(llm, tavily_key: str):
     """Build the search agent with the given LLM and Tavily key."""
-    from langchain.agents import AgentExecutor, create_tool_calling_agent
+    from langchain_classic.agents import AgentExecutor, create_tool_calling_agent
     from langchain_core.prompts import ChatPromptTemplate
-    from backend.tools import build_search_tool   # see note below
+    from tools import build_search_tool
 
     search_tool = build_search_tool(tavily_key)
 
@@ -189,8 +189,8 @@ def build_search_agent(llm, tavily_key: str):
 
 def build_reader_agent(llm, tavily_key: str):
     """Build the reader agent with the given LLM."""
-    from backend.tools import scrape_url
-    from langchain.agents import AgentExecutor, create_tool_calling_agent
+    from tools import scrape_url
+    from langchain_classic.agents import AgentExecutor, create_tool_calling_agent
     from langchain_core.prompts import ChatPromptTemplate
 
     prompt = ChatPromptTemplate.from_messages([

@@ -18,24 +18,18 @@ def build_search_tool(api_key: str):
     """
     from tavily import TavilyClient
     from langchain.tools import tool
+    from langchain_community.tools.tavily_search import TavilySearchResults
+    from langchain_community.utilities.tavily_search import TavilySearchAPIWrapper
 
-    client = TavilyClient(api_key=api_key)
-
-    @tool
-    def web_search(query: str) -> str:
-        """Search the web for recent and reliable information on a topic. Returns Titles, URLs, and snippets."""
-        results = client.search(query=query, max_results=3)
-
-        out = []
-
-        for r in results['results']:
-            out.append(
-                f'Title: {r["title"]}\nURL: {r["url"]}\nSnippet: {r["content"][:300]}\r'
-            )
-
-        return '\n---\n'.join(out)
-
-    return web_search    
+    # 1. Creating the thread-safe API wrapper using the user's specific key
+    search_wrapper = TavilySearchAPIWrapper(tavily_api_key=api_key)
+    
+    # 2. Passing the wrapper instance directly into the LangChain search tool
+    tavily_tool = TavilySearchResults(api_wrapper=search_wrapper, max_results=3)
+    
+    # 3. Returning the tool so main.py can hand it over to your search agent
+    return tavily_tool
+ 
 
 @tool
 def scrape_url(url: str) -> str:
