@@ -28,6 +28,7 @@ AGENT TYPE:
 """
 
 import asyncio
+from datetime import datetime
 import json
 import sys
 import os
@@ -176,10 +177,13 @@ def build_search_agent(llm, tavily_key: str):
 
     search_tool = build_search_tool(tavily_key)
 
+    # Injecting today's date dynamically
+    current_date = datetime.today().strftime('%B %d, %Y')
+
     # We use LangChain's modern tool-calling agent (replaces deprecated ReAct agent)
     # Tool calling is native to modern LLMs and more efficient than ReAct loops
     prompt = ChatPromptTemplate.from_messages([
-        ("system", "You are a research assistant. Use tools to find information."),
+        ("system", "You are a research assistant. Today's date is {current_date}. Use web search to find accurate, up-to-date information."),
         ("human", "{input}"),
         ("placeholder", "{agent_scratchpad}"),
     ])
@@ -207,8 +211,10 @@ def build_writer_chain(llm):
     from langchain_core.prompts import ChatPromptTemplate
     from langchain_core.output_parsers import StrOutputParser
 
+    current_date = datetime.today().strftime('%B %d, %Y')
+
     writer_prompt = ChatPromptTemplate.from_messages([
-        ("system", "You are an expert research writer. Write clear, structured and insightful reports."),
+        ("system", "You are an expert research writer. Today's date is {current_date}. Write clear, structured and insightful reports."),
         ("human", """Write a detailed research report on the topic below.
 
 Topic: {topic}
