@@ -183,7 +183,7 @@ def build_search_agent(llm, tavily_key: str):
     # We use LangChain's modern tool-calling agent (replaces deprecated ReAct agent)
     # Tool calling is native to modern LLMs and more efficient than ReAct loops
     prompt = ChatPromptTemplate.from_messages([
-        ("system", "You are a research assistant. Today's date is {current_date}. Use web search to find accurate, up-to-date information."),
+        ("system", f"You are a research assistant. Today's date is {current_date}. Use web search to find accurate, up-to-date information."),
         ("human", "{input}"),
         ("placeholder", "{agent_scratchpad}"),
     ])
@@ -214,7 +214,7 @@ def build_writer_chain(llm):
     current_date = datetime.today().strftime('%B %d, %Y')
 
     writer_prompt = ChatPromptTemplate.from_messages([
-        ("system", "You are an expert research writer. Today's date is {current_date}. Write clear, structured and insightful reports."),
+        ("system", f"You are an expert research writer. Today's date is {current_date}. Write clear, structured and insightful reports."),
         ("human", """Write a detailed research report on the topic below.
 
 Topic: {topic}
