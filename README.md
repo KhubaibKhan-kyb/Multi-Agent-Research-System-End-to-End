@@ -1,36 +1,24 @@
 # Argus: Multi-Agent Research System
 
-> Deep research, on demand. A real-time AI research assistant that searches, reads, writes, and critiques.
+A real-time, multi-agent AI research assistant. This system takes a user topic and orchestrates four specialized AI agents to search the web, scrape documentation, write a comprehensive report, and critique its own output. 
 
-![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0%2B-blue)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green)
-![Next.js](https://img.shields.io/badge/Next.js-latest-black)
+The architecture is fully decoupled, using a Next.js frontend and a stateless FastAPI backend. It is designed to be thread-safe, handle concurrent users, and stream reasoning in real-time.
 
-## Deploy for FREE!
+## Architecture & Core Features
 
-**New in this version**: Support for free deployment platforms!
+Instead of relying on basic agent templates, this backend was built from scratch to handle real production environments. 
 
-- **Hugging Face Spaces** (Backend) - $0/month, never expires
-- **Vercel** (Frontend) - $0/month, lightning fast
-- **22 minutes to production**
+* **Stateless & Thread-Safe:** API keys are injected dynamically per request. There are no global client initializations that could cause cross-talk or crashes when multiple users hit the server concurrently.
+* **AI Time-Travel Prevention:** LLMs naturally default to their older training data. This system uses dynamic timestamp injections in the core system prompts, ensuring the agents always know the current date and prioritize fetching the absolute latest news and documentation.
+* **Strict CORS Routing:** Built-in middleware securely routes traffic between separated frontend (Vercel) and backend (Hugging Face) domains.
+* **Dynamic Model Routing:** Users can bring their own API keys for paid models (OpenAI, Anthropic, Google), or use the integrated free tier powered by Groq (Llama 3). Keys are never stored; they are used in memory and immediately discarded.
 
-**→ [START HERE: Deployment Guide](START_HERE.md)** | **[Quick Deploy (22 min)](QUICK_DEPLOY.md)** | **[All Options](DEPLOYMENT_GUIDE.md)**
+## The Agent Pipeline
 
----
-
-## Overview
-
-Argus is a **multi-agent research system** that automates deep research in real-time. It combines four specialized AI agents to:
-
-1. **Search** — Find recent, reliable information across the web
-2. **Read** — Extract and summarize relevant content from URLs
-3. **Write** — Compose structured, insightful research reports
-4. **Critique** — Review and score reports with actionable feedback
-
-The entire process streams live to your browser, so you see research happening in real-time.
-
----
+1. **Search Agent:** Uses the Tavily API to find recent, reliable information across the web.
+2. **Reader Agent:** Extracts and cleans relevant text directly from the target URLs.
+3. **Writer Chain:** Composes a structured, insightful research report based on the scraped data.
+4. **Critic Chain:** Reviews the report, scores it, and provides actionable feedback.
 
 ## Features
 
@@ -45,36 +33,32 @@ The entire process streams live to your browser, so you see research happening i
 **Your Own API Keys**
 - Bring your own paid model keys (OpenAI, Anthropic, Google)
 - Free Groq tier requires no key
-- Keys are **never stored** — sent per-request only
+- Keys are **never stored** - sent per-request only
 
 **Web Search & Scraping**
 - Powered by Tavily API
 - Automatic URL extraction and content scraping
 
 **Beautiful UI**
-- Responsive design (mobile-first)
+- Responsive design 
 - Dark theme with smooth animations
 - Markdown support for formatted reports
 
 ---
 
-## Quick Start
+## Local Setup
 
-### Prerequisites
+### 1. Prerequisites
+* Python 3.9+
+* Node.js 16+
 
-- Python 3.9+
-- Node.js 16+
-- API Keys:
-  - **Tavily** (free tier available): https://tavily.com
-  - **Groq** (optional, free tier): https://console.groq.com
-  - **OpenAI / Anthropic / Google** (optional, for paid models)
-
-### 1. Clone & Setup
+### 2. Backend Setup (FastAPI)
+Navigate to the root directory and install the Python dependencies:
 
 ```bash
-git clone https://github.com/yourusername/argus.git
-cd "Multi Agent Research System"
-```
+pip install -r requirements.txt
+
+---
 
 ### 2. Install Backend Dependencies
 
@@ -88,16 +72,10 @@ Or with pip:
 pip install -r requirements.txt
 ```
 
-### 3. Configure Environment
+### 3. Start Python Server on your Configured Port
 
-Create a `.env` file in the **project root**:
-
-```env
-# Tavily API Key (required for web search)
-TAVILY_API_KEY=tvly-xxxxxxxxxxxxx
-
-# Groq API Key (optional, only if using free models)
-GROQ_API_KEY=gsk-xxxxxxxxxxxxx
+```bash
+uvicorn main:app --reload --port 7086
 ```
 
 ### 4. Install Frontend Dependencies
@@ -109,17 +87,15 @@ npm install
 
 ### 5. Start Everything
 
-From the **project root**, run:
-
 ```bash
 npm run dev
 ```
 
-This starts both the backend (FastAPI on port 8000) and frontend (Next.js on port 3000) simultaneously.
+This starts both the backend (FastAPI on port 7086) and frontend (Next.js on port 3000) simultaneously.
 
 You'll see:
 ```
-✓ Backend: Uvicorn running on http://127.0.0.1:8000
+✓ Backend: Uvicorn running on http://127.0.0.1:7086
 ✓ Frontend: http://localhost:3000
 ```
 
@@ -194,7 +170,7 @@ Visit **http://localhost:3000** and start researching!
    - Choose from Free (Groq) or Paid (OpenAI/Anthropic/Google)
    - If paid, paste your API key (never stored)
 
-2. **Add Tavily Key** (if not in `.env`)
+2. **Add Tavily Key** 
    - Get free key: https://tavily.com
 
 3. **Enter Topic**
