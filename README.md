@@ -229,7 +229,7 @@ Multi-Agent-Research-System/
 - Real-time progress display
 - Report viewing and download
 
-### `tools.py`
+### `backend/tools.py`
 - `web_search()` — Searches the web using Tavily API
 - `scrape_url()` — Extracts text from URLs using BeautifulSoup
 - Used by the agents in the pipeline
@@ -247,28 +247,28 @@ Multi-Agent-Research-System/
 
 ## Deployment
 
-### Deploy Backend (Railway / Render / Fly.io / other)
+### Deploy Backend (Hugging Face Spaces)
 
-1. Push code to GitHub
-2. Create a new Python service on your hosting platform
-3. Set the service root to `backend`
-4. Configure the startup command:
-   ```bash
-   uvicorn main:app --host 0.0.0.0 --port $PORT
-   ```
-5. Set these backend environment variables:
-   - `TAVILY_API_KEY=tvly-xxxxx`
-   - (optional) `GROQ_API_KEY=gsk-xxxxx`
-   - `ALLOW_ORIGINS=https://your-frontend.vercel.app`
-6. Deploy the backend and copy the generated HTTPS URL
+The backend is fully containerized using Docker and is designed to run smoothly on Hugging Face Spaces.
 
-Example with Railway:
-```json
-{
-  "buildCommand": "pip install -r requirements.txt",
-  "startCommand": "cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT"
-}
-```
+1. **Create a New Space:** Go to Hugging Face, create a new Space, and select **Docker** as the SDK template. Choose the **Blank** configuration.
+2. **Push Your Code:** Initialize Git inside your `backend/` directory (or use the main project root) and push your backend files to the Hugging Face repository.
+3. **Configure Environment Variables:** In your Space's **Settings** tab, add your secret keys under **Repository Secrets**:
+   * `TAVILY_API_KEY` (Your web search API key)
+   * `GROQ_API_KEY` (Optional, for the free tier models)
+   * `ALLOW_ORIGINS` (Set this to your Vercel public frontend URL to allow safe access)
+4. **Expose the Endpoint:** Hugging Face will automatically read your `Dockerfile` and build the container. Once it turns green, copy your direct Space API URL (usually formatted as `https://your-username-space-name.hf.space`).
+
+### Deploy Frontend (Vercel)
+
+The Next.js user interface is built to be deployed on Vercel with zero friction.
+
+1. **Connect Repository:** Import your repository into your Vercel dashboard.
+2. **Set Root Directory:** In the project build settings, ensure your **Root Directory** is explicitly set to `frontend`.
+3. **Add Environment Variables:** Under the Project Settings, add the following environment variable so the client can talk to the server:
+   * `BACKEND_URL`: `https://your-username-space-name.hf.space` (The Hugging Face Space URL you copied above)
+4. **Manage Deployment Protection (Optional):** If you are sharing a specific deployment preview link with others and want them to access it instantly without hitting a login screen, navigate to **Settings > Deployment Protection** and toggle **OFF** Vercel Authentication for Previews.
+5. **Deploy:** Hit deploy. Vercel will build the frontend and host it globally.
 
 ### Deploy Frontend (Vercel)
 
