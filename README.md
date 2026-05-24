@@ -260,28 +260,14 @@ The backend is fully containerized using Docker and is designed to run smoothly 
 4. **Expose the Endpoint:** Hugging Face will automatically read your `Dockerfile` and build the container. Once it turns green, copy your direct Space API URL (usually formatted as `https://your-username-space-name.hf.space`).
 
 ### Deploy Frontend (Vercel)
+The Next.js user interface is optimized for Vercel with zero friction.
 
-The Next.js user interface is built to be deployed on Vercel with zero friction.
-
-1. **Connect Repository:** Import your repository into your Vercel dashboard.
+1. **Connect Repository:** Import your main GitHub repository into your Vercel dashboard.
 2. **Set Root Directory:** In the project build settings, ensure your **Root Directory** is explicitly set to `frontend`.
-3. **Add Environment Variables:** Under the Project Settings, add the following environment variable so the client can talk to the server:
+3. **Add Environment Variables:** Under Project Settings, add the environment variable linking to your API:
    * `BACKEND_URL`: `https://your-username-space-name.hf.space` (The Hugging Face Space URL you copied above)
-4. **Manage Deployment Protection (Optional):** If you are sharing a specific deployment preview link with others and want them to access it instantly without hitting a login screen, navigate to **Settings > Deployment Protection** and toggle **OFF** Vercel Authentication for Previews.
-5. **Deploy:** Hit deploy. Vercel will build the frontend and host it globally.
-
-### Deploy Frontend (Vercel)
-
-1. Push code to GitHub
-2. Create a new Vercel project and set the root directory to `frontend`
-3. Set the framework preset to `Next.js`
-4. Add this environment variable:
-   ```
-   BACKEND_URL=https://your-backend-api.com
-   ```
-5. Deploy the frontend
-
-Once deployed, Vercel will use `BACKEND_URL` to forward `/api/*` calls to your backend.
+4. **Manage Deployment Protection (Optional):** If you want your preview links to be accessible to anyone without hitting an access wall, navigate to **Settings > Deployment Protection** and toggle **OFF** Vercel Authentication for Previews.
+5. **Deploy:** Hit deploy, and Vercel will build and host the frontend globally.
 
 ---
 
