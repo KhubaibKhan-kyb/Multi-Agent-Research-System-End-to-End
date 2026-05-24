@@ -335,14 +335,4 @@ Mit. Feel free to use for personal or commercial projects.
 
 ---
 
-## Questions?
-
-If you have questions:
-1. Check the troubleshooting section
-2. Review the architecture diagram
-3. Inspect browser DevTools (F12) for error messages
-4. Check backend logs in terminal
-
----
-
 **Happy researching!**
