@@ -189,20 +189,27 @@ Visit **http://localhost:3000** and start researching!
 ## Project Structure
 
 ```
-Multi Agent Research System/
-├── backend/
-│   ├── main.py                 # FastAPI server
-│   └── requirements.txt         # Python dependencies
-├── frontend/
-│   ├── app/
-│   │   ├── page.tsx            # Main React component
-│   │   ├── layout.tsx          # Layout wrapper
-│   │   └── globals.css         # Tailwind styles
-│   ├── package.json            # Node dependencies
+Multi-Agent-Research-System/
+├── backend/                    # FastAPI server & core agent logic (Hugging Face)
+│   ├── .dockerignore
+│   ├── Dockerfile              # Backend containerization
+│   ├── main.py                 # Main FastAPI app
+│   ├── Procfile
+│   ├── requirements.txt        # Python dependencies
+│   └── tools.py                # Web search & scraping tools
+├── frontend/                   # Next.js UI (Deployed on Vercel)
+│   ├── app/                    # React components & UI
+│   ├── .env.local.example
+│   ├── Dockerfile              # Frontend containerization
 │   ├── next.config.js          # Next.js config
+│   ├── package.json            # Node dependencies
+│   ├── postcss.config.js
+│   ├── tailwind.config.js      # Tailwind styles
 │   └── tsconfig.json           # TypeScript config
-├── tools.py                    # Web search & scraping tools
-├── requirements.txt            # Backend dependencies
+├── .env
+├── .env.example
+├── .gitignore
+├── docker-compose.yml          # Docker composition for full-stack local dev
 └── README.md                   # This file
 ```
 
@@ -317,11 +324,11 @@ ALLOW_ORIGINS=https://your-frontend.vercel.app
 - Or paste your OpenAI key in the UI
 
 ### Backend not responding
-- Check backend is running on `http://localhost:8000`
+- Check backend is running on `http://localhost:7860`
 - Check CORS settings in `main.py`
 
 ### Frontend can't find backend
-- Ensure backend is running on port 8000
+- Ensure backend is running on port 7860
 - Check `fetch("/api/research", ...)` in `page.tsx`
 
 ---
@@ -338,7 +345,7 @@ Contributions welcome! Feel free to:
 
 ## License
 
-Feel free to use for personal or commercial projects.
+Mit. Feel free to use for personal or commercial projects.
 
 ---
 
